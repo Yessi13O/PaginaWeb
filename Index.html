@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Unidad Video Diagnóstica de la Mujer</title>
+  <link rel="stylesheet" href="estilos.css" />
+</head>
+<body>
+
+  <!-- ===================== PANTALLA DE LOGIN ===================== -->
+  <div id="pantalla-login" class="pantalla activa">
+    <div class="login-contenedor">
+      <div class="login-logo">
+        <div class="logo-icono">
+          <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
+            <path d="M16 4 C10 4 6 10 8 16 C10 22 14 26 16 28 C18 26 22 22 24 16 C26 10 22 4 16 4Z" stroke="#2563eb" stroke-width="2" fill="none"/>
+            <path d="M10 16 L14 20 L22 12" stroke="#2563eb" stroke-width="2" fill="none" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <div>
+          <h1 class="login-titulo">Unidad Video Diagnóstica</h1>
+          <p class="login-subtitulo">de la Mujer</p>
+        </div>
+      </div>
+      <div class="login-card">
+        <div class="login-tabs">
+          <button class="tab-btn activo" onclick="mostrarTab('login', event)">Iniciar Sesión</button>
+          <button class="tab-btn" onclick="mostrarTab('registro', event)">Registrarse</button>
+        </div>
+        <div id="tab-login" class="tab-contenido activo">
+          <div class="campo-grupo">
+            <label>Correo Electrónico</label>
+            <div class="campo-icono">
+              <span>✉</span>
+              <input type="email" id="login-email" placeholder="tu@email.com" />
+            </div>
+          </div>
+          <div class="campo-grupo">
+            <label>Contraseña</label>
+            <div class="campo-icono">
+              <span>🔒</span>
+              <input type="password" id="login-pass" placeholder="••••••••" />
+            </div>
+          </div>
+          <p class="olvido-pass">¿Olvidaste tu contraseña?</p>
+          <button class="btn-primario ancho-completo" onclick="iniciarSesion()">Iniciar Sesión</button>
+          <p id="login-error" class="error-msg"></p>
+          <div class="demo-cuentas">
+            <p class="demo-titulo">Cuentas de demostración:</p>
+            <div class="demo-btns">
+              <button onclick="loginRapido('paciente')" class="demo-btn azul">Paciente</button>
+              <button onclick="loginRapido('recepcionista')" class="demo-btn verde">Recepcionista</button>
+              <button onclick="loginRapido('ginecologa')" class="demo-btn morado">Ginecóloga</button>
+              <button onclick="loginRapido('admin')" class="demo-btn rojo">Administrador</button>
+            </div>
+          </div>
+        </div>
+        <div id="tab-registro" class="tab-contenido">
+          <div class="campo-grupo"><label>Nombre Completo</label><input type="text" placeholder="Tu nombre completo" /></div>
+          <div class="campo-grupo"><label>Correo Electrónico</label><input type="email" placeholder="tu@email.com" /></div>
+          <div class="campo-grupo"><label>Contraseña</label><input type="password" placeholder="••••••••" /></div>
+          <button class="btn-primario ancho-completo">Crear Cuenta</button>
+        </div>
+        <p class="sistema-texto">Sistema de gestión de citas médicas<br>Especializado en salud femenina</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===================== APP PRINCIPAL ===================== -->
+  <div id="pantalla-app" class="pantalla">
+    <header class="header">
+      <div class="header-izq">
+        <div class="logo-icono pequeno">
+          <svg width="20" height="20" viewBox="0 0 32 32" fill="none">
+            <path d="M16 4 C10 4 6 10 8 16 C10 22 14 26 16 28 C18 26 22 22 24 16 C26 10 22 4 16 4Z" stroke="#2563eb" stroke-width="2" fill="none"/>
+            <path d="M10 16 L14 20 L22 12" stroke="#2563eb" stroke-width="2" fill="none" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <div>
+          <span class="header-titulo">Unidad Video Diagnóstica</span>
+          <span class="header-sub">de la Mujer</span>
+        </div>
+      </div>
+      <div class="header-der">
+        <span id="badge-rol" class="badge-rol"></span>
+        <button class="btn-nueva-cita" onclick="abrirModalCita()" id="btn-header-cita">+ Nueva Cita</button>
+        <button class="btn-cerrar-sesion" onclick="cerrarSesion()">Cerrar Sesión</button>
+      </div>
+    </header>
+
+    <div class="app-cuerpo">
+      <nav class="nav-lateral" id="nav-lateral">
+        <ul class="nav-lista">
+          <li><button class="nav-btn activo" onclick="mostrarSeccion('inicio')" id="nav-inicio"><span class="nav-icono">🏠</span> Inicio</button></li>
+          <li id="nav-li-pacientes"><button class="nav-btn" onclick="mostrarSeccion('pacientes')" id="nav-pacientes"><span class="nav-icono">👥</span> Pacientes</button></li>
+          <li><button class="nav-btn" onclick="mostrarSeccion('citas')" id="nav-citas"><span class="nav-icono">📅</span> Citas</button></li>
+          <li id="nav-li-medicos"><button class="nav-btn" onclick="mostrarSeccion('medicos')" id="nav-medicos"><span class="nav-icono">👩‍⚕️</span> Médicos</button></li>
+          <li id="nav-li-reportes"><button class="nav-btn" onclick="mostrarSeccion('reportes')" id="nav-reportes"><span class="nav-icono">📊</span> Reportes</button></li>
+          <li id="nav-li-usuarios"><button class="nav-btn" onclick="mostrarSeccion('usuarios')" id="nav-usuarios"><span class="nav-icono">⚙️</span> Usuarios</button></li>
+          <li><button class="nav-btn" onclick="mostrarSeccion('perfil')" id="nav-perfil"><span class="nav-icono">👤</span> Perfil</button></li>
+        </ul>
+      </nav>
+
+      <main class="contenido-principal">
+
+        <!-- INICIO -->
+        <section id="sec-inicio" class="seccion activa">
+          <div class="sec-header">
+            <div>
+              <h2 id="bienvenida-titulo">Unidad Video Diagnóstica de la Mujer</h2>
+              <p id="bienvenida-sub">Sistema de gestión de citas y diagnóstico especializado</p>
+            </div>
+          </div>
+          <div class="tarjetas-stats" id="stats-container"></div>
+          <div class="sec-subtitulo"><h3>Próximas Citas</h3></div>
+          <div id="lista-proximas-citas" class="lista-citas"></div>
+        </section>
+
+        <!-- PACIENTES -->
+        <section id="sec-pacientes" class="seccion">
+          <div class="sec-header">
+            <h2>Pacientes</h2>
+            <button class="btn-primario" id="btn-nuevo-paciente" onclick="abrirModalNuevoPaciente()">+ Nuevo Paciente</button>
+          </div>
+          <div class="buscador-contenedor">
+            <input type="text" placeholder="Buscar paciente por nombre, email o identificación..." class="buscador" id="buscador-pacientes" oninput="filtrarPacientes(this.value)" />
+          </div>
+          <table class="tabla">
+            <thead><tr><th>Paciente</th><th>Email</th><th>Teléfono</th><th>Última Cita</th><th>Acciones</th></tr></thead>
+            <tbody id="tabla-pacientes-body"></tbody>
+          </table>
+        </section>
+
+        <!-- CITAS -->
+        <section id="sec-citas" class="seccion">
+          <div class="sec-header">
+            <h2>Todas las Citas</h2>
+            <button class="btn-primario" onclick="abrirModalCita()" id="btn-sec-nueva-cita">+ Nueva Cita</button>
+          </div>
+          <!-- PANEL RECEPCIÓN (solo recepcionista) -->
+          <div id="panel-recepcion" style="display:none;">
+            <div class="recepcion-layout">
+              <div class="recepcion-lista" id="lista-todas-citas" class="lista-citas"></div>
+              <div class="recepcion-panel" id="recepcion-panel-detalle">
+                <div class="recepcion-panel-vacio">
+                  <div style="font-size:48px;margin-bottom:12px;">🏥</div>
+                  <p style="color:#94a3b8;font-size:14px;">Selecciona una cita para recepcionar a la paciente</p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- Lista normal (otros roles) -->
+          <div id="lista-citas-normal" class="lista-citas"></div>
+        </section>
+
+        <!-- MÉDICOS -->
+        <section id="sec-medicos" class="seccion">
+          <div class="sec-header"><h2>Ginecólogas Disponibles</h2></div>
+          <div class="grid-medicos">
+            <div class="card-medico"><div class="avatar grande azul">MG</div><div><p class="medico-nombre">Dra. María González</p><p class="medico-esp">Ginecología - Obstetricia</p><p class="medico-consultorio">📍 Consultorio 1</p></div></div>
+            <div class="card-medico"><div class="avatar grande verde">CL</div><div><p class="medico-nombre">Dra. Carmen López</p><p class="medico-esp">Ginecología - Colposcopía</p><p class="medico-consultorio">📍 Consultorio 2</p></div></div>
+            <div class="card-medico"><div class="avatar grande morado">AM</div><div><p class="medico-nombre">Dra. Ana Martínez</p><p class="medico-esp">Ginecología - Ecografía</p><p class="medico-consultorio">📍 Sala de Diagnóstico</p></div></div>
+            <div class="card-medico"><div class="avatar grande naranja">LF</div><div><p class="medico-nombre">Dra. Laura Fernández</p><p class="medico-esp">Ginecología - Mastología</p><p class="medico-consultorio">📍 Consultorio 3</p></div></div>
+          </div>
+        </section>
+
+        <!-- REPORTES -->
+        <section id="sec-reportes" class="seccion">
+          <div class="sec-header">
+            <h2>Reportes</h2>
+            <div style="display:flex;gap:8px;">
+              <button class="btn-primario" onclick="exportarExcel()">⬇ Exportar Excel</button>
+              <button class="btn-secundario" onclick="exportarPDF()">⬇ Exportar PDF</button>
+            </div>
+          </div>
+          <div class="card-filtros">
+            <h3>🔍 Filtros</h3>
+            <div class="filtros-fila">
+              <div class="campo-grupo"><label>Año</label><select id="filtro-anio"><option>2026</option><option>2025</option></select></div>
+              <div class="campo-grupo"><label>Mes</label><select id="filtro-mes"><option>Todos los meses</option><option>Enero</option><option>Febrero</option><option>Marzo</option><option>Abril</option><option>Mayo</option><option>Junio</option></select></div>
+              <div class="campo-grupo"><label>Procedimiento</label><select id="filtro-proc"><option>Todos los procedimientos</option><option>Colposcopía</option><option>Ecografía</option><option>Mastología</option><option>Obstetricia</option></select></div>
+            </div>
+            <div class="filtros-acciones"><button class="btn-primario">Aplicar Filtros</button><button class="btn-secundario">Limpiar</button></div>
+          </div>
+          <div class="tarjetas-stats">
+            <div class="stat-card"><div class="stat-icono azul">📋</div><div class="stat-num">145</div><div class="stat-label">Total Procedimientos</div></div>
+            <div class="stat-card"><div class="stat-icono verde">👥</div><div class="stat-num">98</div><div class="stat-label">Pacientes Atendidas</div></div>
+            <div class="stat-card"><div class="stat-icono morado">⭐</div><div class="stat-num">Colposcopía</div><div class="stat-label">Más Común</div></div>
+            <div class="stat-card"><div class="stat-icono naranja">💰</div><div class="stat-num">$45,230</div><div class="stat-label">Ingresos Totales</div></div>
+          </div>
+          <div class="card-reporte">
+            <h3>Desglose por Procedimiento</h3>
+            <div class="barra-reporte"><span>Colposcopía</span><div class="barra-contenedor"><div class="barra-fill azul" style="width:45%"></div></div><span>45 (31%)</span></div>
+            <div class="barra-reporte"><span>Ecografía</span><div class="barra-contenedor"><div class="barra-fill verde" style="width:35%"></div></div><span>35 (24%)</span></div>
+            <div class="barra-reporte"><span>Obstetricia</span><div class="barra-contenedor"><div class="barra-fill morado" style="width:30%"></div></div><span>30 (21%)</span></div>
+            <div class="barra-reporte"><span>Mastología</span><div class="barra-contenedor"><div class="barra-fill naranja" style="width:25%"></div></div><span>25 (17%)</span></div>
+          </div>
+        </section>
+
+        <!-- USUARIOS -->
+        <section id="sec-usuarios" class="seccion">
+          <div class="sec-header"><h2>Usuarios del Sistema</h2><button class="btn-primario" onclick="abrirModalNuevoUsuario()">+ Nuevo Usuario</button></div>
+          <div class="tarjetas-stats">
+            <div class="stat-card"><div class="stat-icono morado">👤</div><div class="stat-num">7</div><div class="stat-label">Total Usuarios</div></div>
+            <div class="stat-card"><div class="stat-icono azul">🛡</div><div class="stat-num">4</div><div class="stat-label">Ginecólogas</div></div>
+            <div class="stat-card"><div class="stat-icono verde">✅</div><div class="stat-num">6</div><div class="stat-label">Usuarios Activos</div></div>
+            <div class="stat-card"><div class="stat-icono naranja">⏸</div><div class="stat-num">1</div><div class="stat-label">Inactivos</div></div>
+          </div>
+          <div class="buscador-contenedor"><input type="text" placeholder="Buscar por nombre, email o rol..." class="buscador" /></div>
+          <table class="tabla">
+            <thead><tr><th>Usuario</th><th>Rol</th><th>Especialidad</th><th>Email</th><th>Estado</th><th>Acciones</th></tr></thead>
+            <tbody id="tabla-usuarios-body"></tbody>
+          </table>
+        </section>
+
+        <!-- PERFIL -->
+        <section id="sec-perfil" class="seccion">
+          <div class="sec-header"><h2>Mi Perfil</h2></div>
+          <div class="card-perfil">
+            <div class="perfil-cabecera">
+              <div class="avatar grande azul" id="perfil-avatar">MG</div>
+              <div><p class="perfil-nombre" id="perfil-nombre">María García</p><p class="perfil-rol" id="perfil-rol-texto">Paciente</p></div>
+            </div>
+            <div class="perfil-campos">
+              <div class="perfil-campo"><span class="campo-icono-color azul">✉</span><div><p class="campo-etiqueta">Email</p><p class="campo-valor" id="perfil-email">maria.garcia@email.com</p></div></div>
+              <div class="perfil-campo"><span class="campo-icono-color verde">📞</span><div><p class="campo-etiqueta">Teléfono</p><p class="campo-valor">+57 300 123 4567</p></div></div>
+              <div class="perfil-campo"><span class="campo-icono-color morado">📅</span><div><p class="campo-etiqueta">Fecha de Nacimiento</p><p class="campo-valor">15 de Marzo, 1990</p></div></div>
+            </div>
+            <div class="perfil-config">
+              <h3>⚙️ Configuración</h3>
+              <div class="campo-grupo"><label>Nombre Completo</label><input type="text" id="perfil-input-nombre" value="María García" /></div>
+              <div class="campo-grupo"><label>Teléfono</label><input type="text" value="+57 300 123 4567" /></div>
+              <button class="btn-primario" onclick="guardarPerfil()">Guardar Cambios</button>
+            </div>
+          </div>
+        </section>
+
+      </main>
+    </div>
+
+    <nav class="nav-inferior">
+      <button class="nav-inf-btn activo" onclick="mostrarSeccion('inicio')">🏠<span>Inicio</span></button>
+      <button class="nav-inf-btn" onclick="mostrarSeccion('pacientes')" id="nav-inf-pacientes">👥<span>Pacientes</span></button>
+      <button class="nav-inf-btn" onclick="mostrarSeccion('citas')">📅<span>Citas</span></button>
+      <button class="nav-inf-btn" onclick="mostrarSeccion('medicos')" id="nav-inf-medicos">👩‍⚕️<span>Médicos</span></button>
+      <button class="nav-inf-btn" onclick="mostrarSeccion('reportes')" id="nav-inf-reportes">📊<span>Reportes</span></button>
+      <button class="nav-inf-btn" onclick="mostrarSeccion('usuarios')" id="nav-inf-usuarios">⚙️<span>Usuarios</span></button>
+      <button class="nav-inf-btn" onclick="mostrarSeccion('perfil')">👤<span>Perfil</span></button>
+    </nav>
+  </div>
+
+  <!-- ===================== MODAL NUEVA CITA ===================== -->
+  <div id="modal-overlay" class="modal-overlay" onclick="cerrarModal()">
+    <div class="modal-contenido" onclick="event.stopPropagation()">
+      <div class="modal-header"><h3>Nueva Cita Médica</h3><button class="modal-cerrar" onclick="cerrarModal()">✕</button></div>
+      <div class="modal-cuerpo">
+        <div class="campo-grupo"><label>Tipo de Consulta</label><select id="modal-tipo"><option value="">Seleccionar...</option><option>Colposcopía</option><option>Ecografía</option><option>Obstetricia</option><option>Mastología</option><option>Consulta General</option></select></div>
+        <div class="campo-grupo" id="campo-paciente-modal"><label>Paciente</label><select id="modal-paciente"><option value="">Seleccionar...</option><option>María García</option><option>Laura Pérez</option><option>Ana Martínez</option></select></div>
+        <div class="campo-grupo"><label>Ginecóloga</label><select id="modal-doctora"><option value="">Seleccionar...</option><option>Dra. María González - Obstetricia</option><option>Dra. Carmen López - Colposcopía</option><option>Dra. Ana Martínez - Ecografía</option><option>Dra. Laura Fernández - Mastología</option></select></div>
+        <div class="fila-dos">
+          <div class="campo-grupo"><label>Fecha</label><input type="date" id="modal-fecha" /></div>
+          <div class="campo-grupo"><label>Hora</label><input type="time" id="modal-hora" /></div>
+        </div>
+        <div class="campo-grupo"><label>Motivo de consulta</label><textarea id="modal-motivo" placeholder="Describe brevemente el motivo..." rows="3"></textarea></div>
+        <div class="confirmacion-bloque">
+          <p class="confirmacion-titulo">📨 Enviar confirmación al paciente:</p>
+          <div class="confirmacion-opciones">
+            <label class="check-opcion"><input type="checkbox" id="conf-whatsapp" checked /><span class="check-icono whatsapp">💬</span><span>WhatsApp</span></label>
+            <label class="check-opcion"><input type="checkbox" id="conf-email" checked /><span class="check-icono email">✉️</span><span>Correo Electrónico</span></label>
+          </div>
+          <div class="campo-grupo" style="margin-top:10px;margin-bottom:0;"><label>Número WhatsApp del paciente</label><input type="tel" id="modal-whatsapp" placeholder="+57 300 000 0000" /></div>
+        </div>
+      </div>
+      <div class="modal-footer"><button class="btn-secundario" onclick="cerrarModal()">Cancelar</button><button class="btn-primario" onclick="agendarCita()">Agendar Cita</button></div>
+    </div>
+  </div>
+
+  <!-- ===================== MODAL EDITAR CITA ===================== -->
+  <div id="modal-editar-overlay" class="modal-overlay" onclick="cerrarModalEditar()">
+    <div class="modal-contenido" onclick="event.stopPropagation()">
+      <div class="modal-header"><h3 id="modal-editar-titulo">Editar Cita</h3><button class="modal-cerrar" onclick="cerrarModalEditar()">✕</button></div>
+      <div class="modal-cuerpo">
+        <input type="hidden" id="editar-cita-id" />
+        <div class="campo-grupo"><label>Tipo de Consulta</label><select id="editar-tipo"><option>Colposcopía</option><option>Ecografía</option><option>Obstetricia</option><option>Mastología</option><option>Consulta General</option></select></div>
+        <div class="campo-grupo"><label>Paciente</label><select id="editar-paciente"><option>María García</option><option>Laura Pérez</option><option>Ana Martínez</option></select></div>
+        <div class="campo-grupo"><label>Ginecóloga</label><select id="editar-doctora"><option>Dra. María González - Obstetricia</option><option>Dra. Carmen López - Colposcopía</option><option>Dra. Ana Martínez - Ecografía</option><option>Dra. Laura Fernández - Mastología</option></select></div>
+        <div class="fila-dos"><div class="campo-grupo"><label>Fecha</label><input type="date" id="editar-fecha" /></div><div class="campo-grupo"><label>Hora</label><input type="time" id="editar-hora" /></div></div>
+        <div class="campo-grupo"><label>Estado</label><select id="editar-estado"><option value="proxima">Próxima</option><option value="completada">Completada</option><option value="cancelada">Cancelada</option></select></div>
+      </div>
+      <div class="modal-footer"><button class="btn-secundario" onclick="cerrarModalEditar()">Cancelar</button><button class="btn-primario" onclick="guardarEdicionCita()">Guardar Cambios</button></div>
+    </div>
+  </div>
+
+  <!-- ===================== MODAL EDITAR PACIENTE ===================== -->
+  <div id="modal-paciente-overlay" class="modal-overlay" onclick="cerrarModalPaciente()">
+    <div class="modal-contenido" onclick="event.stopPropagation()">
+      <div class="modal-header"><h3 id="modal-paciente-titulo">Editar Paciente</h3><button class="modal-cerrar" onclick="cerrarModalPaciente()">✕</button></div>
+      <div class="modal-cuerpo">
+        <input type="hidden" id="editar-paciente-idx" />
+        <div class="campo-grupo"><label>Nombre Completo</label><input type="text" id="ep-nombre" /></div>
+        <div class="campo-grupo"><label>Email</label><input type="email" id="ep-email" /></div>
+        <div class="campo-grupo"><label>Teléfono</label><input type="text" id="ep-telefono" /></div>
+        <div class="campo-grupo"><label>Última Cita</label><input type="text" id="ep-ultima" /></div>
+      </div>
+      <div class="modal-footer"><button class="btn-secundario" onclick="cerrarModalPaciente()">Cancelar</button><button class="btn-primario" onclick="guardarPaciente()">Guardar</button></div>
+    </div>
+  </div>
+
+  <!-- ===================== MODAL CONFIRMACIÓN ===================== -->
+  <div id="modal-confirm-overlay" class="modal-overlay" onclick="cerrarModalConfirm()">
+    <div class="modal-contenido modal-confirm" onclick="event.stopPropagation()">
+      <div class="modal-header"><h3 id="confirm-titulo">Confirmar Acción</h3><button class="modal-cerrar" onclick="cerrarModalConfirm()">✕</button></div>
+      <div class="modal-cuerpo"><p id="confirm-mensaje" style="font-size:14px;color:#374151;"></p></div>
+      <div class="modal-footer"><button class="btn-secundario" onclick="cerrarModalConfirm()">Cancelar</button><button class="btn-primario" id="confirm-btn-ok" style="background:#dc2626;">Confirmar</button></div>
+    </div>
+  </div>
+
+  <!-- ===================== MODAL WHATSAPP ===================== -->
+  <div id="modal-wa-overlay" class="modal-overlay" onclick="cerrarModalWA()">
+    <div class="modal-contenido" onclick="event.stopPropagation()">
+      <div class="modal-header"><h3>💬 Enviar Recordatorio por WhatsApp</h3><button class="modal-cerrar" onclick="cerrarModalWA()">✕</button></div>
+      <div class="modal-cuerpo">
+        <div id="wa-info-cita" style="background:#f0f9ff;border-radius:10px;padding:14px;margin-bottom:16px;font-size:13px;color:#1e293b;"></div>
+        <div class="campo-grupo"><label>Número WhatsApp de la Paciente</label><input type="tel" id="wa-numero" placeholder="+57 300 000 0000" /></div>
+        <div class="campo-grupo"><label>Mensaje</label><textarea id="wa-mensaje" rows="5"></textarea></div>
+        <input type="hidden" id="wa-cita-id" />
+      </div>
+      <div class="modal-footer"><button class="btn-secundario" onclick="cerrarModalWA()">Cancelar</button><button class="btn-primario" style="background:#25d366;" onclick="enviarWhatsApp()">💬 Enviar por WhatsApp</button></div>
+    </div>
+  </div>
+
+  <!-- ===================== MODAL HISTORIA CLÍNICA (GINECÓLOGA) ===================== -->
+  <div id="modal-hc-overlay" class="modal-overlay" onclick="cerrarModalHC()">
+    <div class="modal-contenido modal-hc" onclick="event.stopPropagation()">
+      <div class="modal-header">
+        <div>
+          <h3 id="hc-titulo">Historia Clínica</h3>
+          <p id="hc-subtitulo" style="font-size:12px;color:#64748b;margin-top:2px;"></p>
+        </div>
+        <button class="modal-cerrar" onclick="cerrarModalHC()">✕</button>
+      </div>
+      <div class="modal-cuerpo hc-cuerpo">
+        <input type="hidden" id="hc-cita-id" />
+
+        <!-- Info cita -->
+        <div class="hc-info-cita" id="hc-info-cita-bloque"></div>
+
+        <!-- Tabs historia clínica -->
+        <div class="hc-tabs">
+          <button class="hc-tab activo" onclick="mostrarHCTab('anamnesis', this)">📋 Anamnesis</button>
+          <button class="hc-tab" onclick="mostrarHCTab('antecedentes', this)">📁 Antecedentes</button>
+          <button class="hc-tab" onclick="mostrarHCTab('examen', this)">🔬 Examen Físico</button>
+          <button class="hc-tab" onclick="mostrarHCTab('diagnostico', this)">🩺 Diagnóstico</button>
+        </div>
+
+        <!-- Tab Anamnesis -->
+        <div id="hc-tab-anamnesis" class="hc-tab-content activo">
+          <div class="campo-grupo"><label>Motivo de Consulta Principal</label><textarea id="hc-motivo" rows="3" placeholder="Describa el motivo principal de la consulta..."></textarea></div>
+          <div class="fila-dos">
+            <div class="campo-grupo"><label>Tiempo de Evolución</label><input type="text" id="hc-evolucion" placeholder="Ej: 3 días, 2 semanas..." /></div>
+            <div class="campo-grupo"><label>Intensidad del Síntoma (1-10)</label><input type="number" id="hc-intensidad" min="1" max="10" placeholder="1-10" /></div>
+          </div>
+          <div class="campo-grupo"><label>Síntomas Acompañantes</label><textarea id="hc-sintomas" rows="2" placeholder="Sangrado, dolor, flujo, etc..."></textarea></div>
+          <div class="campo-grupo"><label>Medicamentos Actuales</label><textarea id="hc-medicamentos" rows="2" placeholder="Liste medicamentos que toma actualmente..."></textarea></div>
+        </div>
+
+        <!-- Tab Antecedentes -->
+        <div id="hc-tab-antecedentes" class="hc-tab-content">
+          <div class="hc-seccion-titulo">Antecedentes Ginecológicos</div>
+          <div class="fila-dos">
+            <div class="campo-grupo"><label>Menarquia (edad)</label><input type="number" id="hc-menarquia" placeholder="Edad primer período" /></div>
+            <div class="campo-grupo"><label>Ciclo Menstrual</label><input type="text" id="hc-ciclo" placeholder="Regular / Irregular - cada X días" /></div>
+          </div>
+          <div class="fila-dos">
+            <div class="campo-grupo"><label>Fecha Última Menstruación</label><input type="date" id="hc-fum" /></div>
+            <div class="campo-grupo"><label>Método Anticonceptivo</label><select id="hc-anticonceptivo"><option value="">Ninguno</option><option>Píldora</option><option>Inyección</option><option>DIU</option><option>Condón</option><option>Ligadura</option><option>Otro</option></select></div>
+          </div>
+          <div class="fila-tres">
+            <div class="campo-grupo"><label>Gestas</label><input type="number" id="hc-gestas" placeholder="0" min="0" /></div>
+            <div class="campo-grupo"><label>Partos</label><input type="number" id="hc-partos" placeholder="0" min="0" /></div>
+            <div class="campo-grupo"><label>Abortos</label><input type="number" id="hc-abortos" placeholder="0" min="0" /></div>
+          </div>
+          <div class="hc-seccion-titulo" style="margin-top:16px;">Antecedentes Patológicos</div>
+          <div class="campo-grupo"><label>Enfermedades Previas</label><textarea id="hc-enfermedades" rows="2" placeholder="Diabetes, hipertensión, cirugías previas..."></textarea></div>
+          <div class="campo-grupo"><label>Alergias</label><input type="text" id="hc-alergias" placeholder="Alergias conocidas a medicamentos o alimentos..." /></div>
+          <div class="campo-grupo"><label>Antecedentes Familiares</label><textarea id="hc-familiares" rows="2" placeholder="Cáncer de cuello uterino, mama, ovario en familia..."></textarea></div>
+        </div>
+
+        <!-- Tab Examen Físico -->
+        <div id="hc-tab-examen" class="hc-tab-content">
+          <div class="hc-seccion-titulo">Signos Vitales</div>
+          <div class="fila-cuatro">
+            <div class="campo-grupo"><label>Peso (kg)</label><input type="number" id="hc-peso" placeholder="Kg" /></div>
+            <div class="campo-grupo"><label>Talla (cm)</label><input type="number" id="hc-talla" placeholder="cm" /></div>
+            <div class="campo-grupo"><label>T/A (mmHg)</label><input type="text" id="hc-ta" placeholder="120/80" /></div>
+            <div class="campo-grupo"><label>FC (lpm)</label><input type="number" id="hc-fc" placeholder="lpm" /></div>
+          </div>
+          <div class="hc-seccion-titulo" style="margin-top:16px;">Hallazgos Ginecológicos</div>
+          <div class="campo-grupo"><label>Genitales Externos</label><textarea id="hc-genitales" rows="2" placeholder="Descripción de genitales externos..."></textarea></div>
+          <div class="campo-grupo"><label>Cérvix / Cuello Uterino</label><textarea id="hc-cervix" rows="2" placeholder="Hallazgos colposcópicos, aspecto del cérvix..."></textarea></div>
+          <div class="campo-grupo"><label>Útero</label><textarea id="hc-utero" rows="2" placeholder="Tamaño, posición, consistencia..."></textarea></div>
+          <div class="campo-grupo"><label>Anexos</label><textarea id="hc-anexos" rows="2" placeholder="Ovarios, trompas, hallazgos..."></textarea></div>
+          <div class="campo-grupo"><label>Hallazgos Colposcópicos Específicos</label><textarea id="hc-colposcopia" rows="3" placeholder="Zona de transformación, epitelio acetoblanco, puntillado, mosaico, vasos atípicos..."></textarea></div>
+        </div>
+
+        <!-- Tab Diagnóstico -->
+        <div id="hc-tab-diagnostico" class="hc-tab-content">
+          <div class="campo-grupo">
+            <label>Diagnóstico Principal (CIE-10)</label>
+            <div class="cie10-busqueda">
+              <input type="text" id="hc-cie10-buscar" placeholder="Buscar diagnóstico CIE-10..." oninput="buscarCIE10(this.value)" />
+              <div id="hc-cie10-sugerencias" class="cie10-sugerencias"></div>
+            </div>
+            <input type="hidden" id="hc-cie10-codigo" />
+            <div id="hc-cie10-seleccionado" class="cie10-seleccionado" style="display:none;"></div>
+          </div>
+          <div class="campo-grupo"><label>Diagnósticos Secundarios</label><textarea id="hc-diag-secundarios" rows="2" placeholder="Otros diagnósticos..."></textarea></div>
+          <div class="campo-grupo"><label>Conducta / Plan de Manejo</label><textarea id="hc-conducta" rows="3" placeholder="Biopsia, seguimiento, tratamiento, remisión..."></textarea></div>
+          <div class="campo-grupo"><label>Fórmula Médica / Medicamentos Recetados</label><textarea id="hc-formula" rows="3" placeholder="Medicamento - dosis - frecuencia - duración..."></textarea></div>
+          <div class="campo-grupo"><label>Próxima Cita / Seguimiento</label><input type="text" id="hc-proxima-cita" placeholder="En 3 meses, tras resultado de biopsia..." /></div>
+          <div class="campo-grupo"><label>Observaciones Finales</label><textarea id="hc-observaciones" rows="3" placeholder="Observaciones adicionales de la consulta..."></textarea></div>
+        </div>
+      </div>
+      <div class="modal-footer hc-footer">
+        <button class="btn-secundario" onclick="cerrarModalHC()">Cerrar</button>
+        <button class="btn-primario" style="background:#7c3aed;" onclick="guardarHistoriaClinica()">💾 Guardar Historia Clínica</button>
+        <button class="btn-primario" onclick="marcarCitaCompletada()">✅ Marcar como Atendida</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===================== TOAST ===================== -->
+  <div id="toast" class="toast"></div>
+
+  <script src="app.js"></script>
+</body>
+</html>
